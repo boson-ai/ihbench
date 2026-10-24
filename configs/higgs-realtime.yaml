@@ -1,0 +1,5 @@
+backend: higgs-realtime
+model: higgs-realtime
+api_key: ${BOSON_API_KEY}
+max_new_tokens: 4096
+max_workers: 1

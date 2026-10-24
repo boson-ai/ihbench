@@ -44,6 +44,10 @@ def make_client(args):
         from ihbench.clients.openai_realtime_client import OpenAIRealtimeClient
 
         return OpenAIRealtimeClient(model_name=args.model, api_key=args.api_key, reasoning_effort=getattr(args, "reasoning_effort", None))
+    elif args.backend == "higgs-realtime":
+        from ihbench.clients.higgs_realtime_client import HiggsRealtimeClient
+
+        return HiggsRealtimeClient(model_name=args.model, api_key=args.api_key)
     elif args.backend == "gemini":
         from ihbench.clients.gemini_client import GeminiChatClient
 
@@ -103,7 +107,7 @@ def main():
                         help="HuggingFace dataset repo (used when --dataset is omitted)")
     parser.add_argument("--audio-cache", default=".ihbench_audio_cache",
                         help="Local dir where HF-embedded audio is materialized")
-    parser.add_argument("--backend", default=None, choices=["openai", "openai-realtime", "gemini", "gemini-live", "vllm"])
+    parser.add_argument("--backend", default=None, choices=["openai", "openai-realtime", "higgs-realtime", "gemini", "gemini-live", "vllm"])
     parser.add_argument("--model", default=None, help="Model name")
     parser.add_argument("--output", required=True, help="Output JSONL path for responses")
     parser.add_argument("--api-key", default=None, help="API key (defaults to env var)")
